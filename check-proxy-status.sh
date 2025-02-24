@@ -51,8 +51,8 @@ if [ ! -z "${PORT}" ] && [ ! -z "${PROXY_USER}" ] && [ ! -z "${PROXY_PASS}" ]; t
     echo -e "Username: ${GREEN}${PROXY_USER}${NC}"
     echo -e "Password: ${GREEN}${PROXY_PASS}${NC}"
 
-    # Format the proxy string for external testing (proxy6.net)
-    PROXY_STRING="${SERVER_IP}:${PORT}:${PROXY_USER}:${PROXY_PASS}"
+    # Format the proxy string for external testing in URL format
+    PROXY_STRING="http://${PROXY_USER}:${PROXY_PASS}@${SERVER_IP}:${PORT}"
     echo -e "\n${CYAN}Proxy String for Testing:${NC}"
     echo -e "${GREEN}${PROXY_STRING}${NC}"
 
@@ -67,7 +67,7 @@ if [ ! -z "${PORT}" ] && [ ! -z "${PROXY_USER}" ] && [ ! -z "${PROXY_PASS}" ]; t
         echo -e "${RED}Local Connection Failed ✗${NC}"
     fi
 
-    # Test with proxy6.net
+    # Test with proxy6.net using the updated proxy string
     echo -e "\n${CYAN}Testing with proxy6.net...${NC}"
     RESPONSE=$(curl -s -X POST https://proxy6.net/api/check \
         -H "Content-Type: application/json" \
