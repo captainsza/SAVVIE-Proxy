@@ -1,4 +1,5 @@
 #!/bin/bash
+# check-proxy-status.sh
 
 # Colors
 RED='\033[0;31m'
@@ -16,13 +17,13 @@ get_proxy_config() {
         source /etc/profile.d/proxy-credentials.sh
     fi
 
-    # Get active port
-    PORT=$(netstat -tlpn | grep squid | grep -oP ':\K\d+' | head -1)
+    # Get active port using netstat (supporting both squid and squid3)
+    PORT=$(netstat -tlpn | grep -E 'squid|squid3' | grep -oP ':\K\d+' | head -1)
     
-    # Get server IP
+    # Get external server IP
     SERVER_IP=$(curl -s ifconfig.me)
 
-    # Try reading from squid password files if env vars not set
+    # If proxy credentials aren’t already set, try reading from squid password files
     if [ -z "${PROXY_USER}" ] || [ -z "${PROXY_PASS}" ]; then
         if [ -f "/etc/squid/.squid_passwd" ]; then
             PROXY_USER=$(head -n1 /etc/squid/.squid_passwd | cut -d: -f1)
@@ -36,7 +37,7 @@ get_proxy_config() {
     echo "${SERVER_IP}:${PORT}:${PROXY_USER}:${PROXY_PASS}"
 }
 
-# Get configuration
+# Retrieve configuration
 CONFIG=$(get_proxy_config)
 SERVER_IP=$(echo $CONFIG | cut -d: -f1)
 PORT=$(echo $CONFIG | cut -d: -f2)
@@ -50,16 +51,18 @@ if [ ! -z "${PORT}" ] && [ ! -z "${PROXY_USER}" ] && [ ! -z "${PROXY_PASS}" ]; t
     echo -e "Username: ${GREEN}${PROXY_USER}${NC}"
     echo -e "Password: ${GREEN}${PROXY_PASS}${NC}"
 
-    # Format for proxy6.net check
+    # Format the proxy string for external testing (proxy6.net)
     PROXY_STRING="${SERVER_IP}:${PORT}:${PROXY_USER}:${PROXY_PASS}"
     echo -e "\n${CYAN}Proxy String for Testing:${NC}"
     echo -e "${GREEN}${PROXY_STRING}${NC}"
 
-    # Test local proxy connection
+    # Test local proxy connection using localhost instead of the public IP
     echo -e "\n${CYAN}Testing Local Connection:${NC}"
-    if curl -m 5 -x "${SERVER_IP}:${PORT}" -U "${PROXY_USER}:${PROXY_PASS}" -s https://ip.me > /dev/null; then
+    LOCAL_PROXY="127.0.0.1:${PORT}"
+    LOCAL_RESULT=$(curl -m 5 -x "${LOCAL_PROXY}" -U "${PROXY_USER}:${PROXY_PASS}" -s https://ip.me)
+    if [ -n "${LOCAL_RESULT}" ]; then
         echo -e "${GREEN}Local Connection Successful ✓${NC}"
-        echo -e "External IP: $(curl -m 5 -x "${SERVER_IP}:${PORT}" -U "${PROXY_USER}:${PROXY_PASS}" -s https://ip.me)"
+        echo -e "External IP: ${GREEN}${LOCAL_RESULT}${NC}"
     else
         echo -e "${RED}Local Connection Failed ✗${NC}"
     fi
@@ -73,7 +76,7 @@ if [ ! -z "${PORT}" ] && [ ! -z "${PROXY_USER}" ] && [ ! -z "${PROXY_PASS}" ]; t
     if echo "${RESPONSE}" | grep -q "working.*true"; then
         echo -e "${GREEN}Proxy6.net Check Passed ✓${NC}"
         SPEED=$(echo "${RESPONSE}" | grep -o '"response_time":[0-9]*' | cut -d: -f2)
-        echo -e "Response Time: ${SPEED}ms"
+        echo -e "Response Time: ${GREEN}${SPEED}ms${NC}"
     else
         echo -e "${RED}Proxy6.net Check Failed ✗${NC}"
     fi
