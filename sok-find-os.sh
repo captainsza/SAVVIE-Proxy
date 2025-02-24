@@ -5,9 +5,9 @@
 # Author: captainsza
 # Email: info@captainsza.com
 # Github: https://github.com/captainsza/SAVVIE-Proxy/
-# Web: https://cloudsavvie.com
+# Web: https://flexeere.com
 # If you need professional assistance, reach out to
-# https://cloudsavvie.com/order/contact.php
+# https://flexeere.com/order/contact.php
 ############################################################
 
 if cat /etc/os-release | grep PRETTY_NAME | grep "Ubuntu 22.04" > /dev/null; then

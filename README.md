@@ -1,6 +1,6 @@
 # SAVVIE Proxy Installer
 
-https://cloudsavvie.com
+https://flexeere.com
 
 Auto install SAVVIE 3 proxy on following linux OS.
 

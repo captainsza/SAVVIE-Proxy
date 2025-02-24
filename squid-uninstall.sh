@@ -5,9 +5,9 @@
 # Author: captainsza
 # Email: info@captainsza.com
 # Github: https://github.com/captainsza/SAVVIE-Proxy/
-# Web: https://cloudsavvie.com
+# Web: https://flexeere.com
 # If you need professional assistance, reach out to
-# https://cloudsavvie.com/order/contact.php
+# https://flexeere.com/order/contact.php
 ############################################################
 
 if [ `whoami` != root ]; then
@@ -24,7 +24,7 @@ SOK_OS=$(/usr/local/bin/sok-find-os)
 
 if [ $SOK_OS == "ERROR" ]; then
     echo "OS NOT SUPPORTED.\n"
-    echo "Contact https://cloudsavvie.com/order/contact.php to add support for your OS."
+    echo "Contact https://flexeere.com/order/contact.php to add support for your OS."
     exit 1;
 fi
 
@@ -93,5 +93,5 @@ echo
 echo 
 echo "SAVVIE Proxy uninstalled."
 echo "Thank you for using captainsza.com SAVVIE proxy installer"
-echo "If you want to reinstall SAVVIE Proxy Server, check https://cloudsavvie.com/proxy"
+echo "If you want to reinstall SAVVIE Proxy Server, check https://flexeere.com/proxy"
 echo 
