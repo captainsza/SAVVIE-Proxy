@@ -18,7 +18,7 @@ Auto install SAVVIE 3 proxy on following linux OS.
 To install, run the script
 
 ```
-wget https://raw.githubusercontent.com/flexeere/SAVVIE-Proxy/main/squid3-install.sh -O squid3-install.sh
+wget https://raw.githubusercontent.com/captainsza/SAVVIE-Proxy/main/squid3-install.sh -O squid3-install.sh
 bash squid3-install.sh
 ```
 

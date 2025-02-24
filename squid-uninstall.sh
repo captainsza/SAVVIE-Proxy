@@ -2,9 +2,9 @@
 
 ############################################################
 # SAVVIE Proxy Installer
-# Author: Flexeere
-# Email: info@flexeere.com
-# Github: https://github.com/flexeere/SAVVIE-Proxy/
+# Author: captainsza
+# Email: info@captainsza.com
+# Github: https://github.com/captainsza/SAVVIE-Proxy/
 # Web: https://cloudsavvie.com
 # If you need professional assistance, reach out to
 # https://cloudsavvie.com/order/contact.php
@@ -92,6 +92,6 @@ rm -f /usr/local/bin/squid-uninstall > /dev/null 2>&1
 echo 
 echo 
 echo "SAVVIE Proxy uninstalled."
-echo "Thank you for using flexeere.com SAVVIE proxy installer"
+echo "Thank you for using captainsza.com SAVVIE proxy installer"
 echo "If you want to reinstall SAVVIE Proxy Server, check https://cloudsavvie.com/proxy"
 echo 

@@ -2,9 +2,9 @@
 
 ############################################################
 # SAVVIE Proxy Installer
-# Author: Flexeere
-# Email: info@flexeere.com
-# Github: https://github.com/flexeere/SAVVIE-Proxy/
+# Author: captainsza
+# Email: info@captainsza.com
+# Github: https://github.com/captainsza/SAVVIE-Proxy/
 # Web: https://cloudsavvie.com
 # If you need professional assistance, reach out to
 # https://cloudsavvie.com/order/contact.php
